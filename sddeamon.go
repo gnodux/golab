@@ -30,14 +30,14 @@ const (
 
 //var notifySocketAddr string
 var notifySocket net.Conn
-var watchdogUpdateSec time.Duration
+var watchdogUpdateSec time.Duration = 5 * time.Second
 
 func init() {
 	var err error
 	notifySocketAddr := os.Getenv(SD_NOTIFY_SOCKET)
 	dur := os.Getenv(SD_WATCHDGO_USEC)
 	if len(dur) > 0 {
-		if micsec, err := strconv.Atoi(dur); err != nil {
+		if micsec, err := strconv.Atoi(dur); err == nil {
 			watchdogUpdateSec = time.Duration((micsec / 2)) * time.Microsecond
 		}
 	}
